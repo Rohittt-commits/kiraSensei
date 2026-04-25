@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="page-title">Add New Word</h1>
+
+<div class="card">
+    <form method="POST">
+        <p>English Word</p>
+        <input type="text" name="english" placeholder="Enter English word" required>
+
+        <p>Japanese Word</p>
+        <input type="text" name="japanese" placeholder="Enter Japanese word" required>
+
+        <button type="submit" class="btn">Add Word</button>
+    </form>
+</div>
+
+{% endblock %}

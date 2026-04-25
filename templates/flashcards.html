@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Flashcards</h1>
+    <p>Flip the cards to test your Japanese vocabulary.</p>
+</div>
+
+{% if words %}
+    <div class="flashcards-grid">
+        {% for word in words %}
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <h3>{{ word.english }}</h3>
+                        <p>Click to reveal Japanese</p>
+                    </div>
+                    <div class="flashcard-back">
+                        <h3>{{ word.japanese }}</h3>
+                        <p>{{ word.english }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-box">
+        <h3>No words available</h3>
+        <p>Add some words first to use flashcards.</p>
+        <a href="{{ url_for('add_word') }}" class="btn-primary">Add Words</a>
+    </div>
+{% endif %}
+
+<script>
+    // No extra JS needed right now because card flips on click
+</script>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Quiz</h1>
+    <p>Test your Japanese vocabulary and track your progress.</p>
+</div>
+
+<div class="top-actions">
+    <div class="score-box">
+        <span>Score:</span>
+        <strong>{{ score }}</strong>
+    </div>
+    <a href="{{ url_for('reset_quiz') }}" class="btn-secondary">Reset Score</a>
+</div>
+
+{% if feedback %}
+    <div class="feedback-box {{ feedback_type }}">
+        {{ feedback }}
+    </div>
+{% endif %}
+
+{% if not_enough_words %}
+    <div class="empty-box">
+        <h3>Not enough words to start quiz</h3>
+        <p>Please add at least 4 words first.</p>
+        <a href="{{ url_for('add_word') }}" class="btn-primary">Add Words</a>
+    </div>
+{% else %}
+    <div class="quiz-card">
+        <h2 class="quiz-question">What is the Japanese word for:</h2>
+        <div class="quiz-word">{{ current_word.english }}</div>
+
+        <form method="POST" class="quiz-form">
+            <input type="hidden" name="word_id" value="{{ current_word.id }}">
+            <input type="hidden" name="correct_answer" value="{{ current_word.japanese }}">
+
+            <div class="quiz-options">
+                {% for option in options %}
+                    <button type="submit" name="answer" value="{{ option }}" class="quiz-option">
+                        {{ option }}
+                    </button>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+{% endif %}
+{% endblock %}

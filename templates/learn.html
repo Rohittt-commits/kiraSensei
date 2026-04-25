@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Learn Japanese Words</h1>
+    <p>Browse all vocabulary words in your learning database.</p>
+</div>
+
+{% if words %}
+<div class="learn-grid">
+
+    {% for word in words %}
+    <div class="learn-card">
+
+        <div class="word-row">
+            <div class="word-column">
+                <span class="label">English</span>
+                <h3>{{ word.english }}</h3>
+            </div>
+
+            <div class="word-column">
+                <span class="label">Japanese</span>
+                <h3>{{ word.japanese }}</h3>
+            </div>
+        </div>
+
+        <div class="card-actions">
+            <button
+                class="speak-btn"
+                onclick="speakJapanese('{{ word.japanese }}')">
+                🔊 Pronounce
+            </button>
+
+            <form action="{{ url_for('delete_word', word_id=word.id) }}" method="POST">
+                <button class="delete-btn" type="submit">
+                    Delete
+                </button>
+            </form>
+        </div>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+{% else %}
+<div class="empty-box">
+    <h3>No words added yet</h3>
+    <p>Add some vocabulary to start learning.</p>
+
+    <a href="{{ url_for('add_word') }}" class="btn-primary">
+        Add Word
+    </a>
+</div>
+{% endif %}
+
+<script>
+function speakJapanese(text) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "ja-JP";
+    speechSynthesis.speak(utterance);
+}
+</script>
+
+{% endblock %}

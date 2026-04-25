@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Dashboard</h1>
+    <p>Track your learning progress and performance.</p>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <h3>Total Words</h3>
+        <p>{{ total_words }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Total Correct</h3>
+        <p>{{ total_correct }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Total Wrong</h3>
+        <p>{{ total_wrong }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Mastered Words</h3>
+        <p>{{ mastered_words }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Weak Words</h3>
+        <p>{{ weak_words_count }}</p>
+    </div>
+</div>
+
+<div class="dashboard-section">
+    <div class="section-title-row">
+        <h2>Recently Reviewed</h2>
+        <a href="{{ url_for('weak_words') }}" class="btn-secondary">View Weak Words</a>
+    </div>
+
+    {% if recently_reviewed %}
+        <div class="table-wrapper">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>English</th>
+                        <th>Japanese</th>
+                        <th>Correct</th>
+                        <th>Wrong</th>
+                        <th>Last Reviewed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for word in recently_reviewed %}
+                    <tr>
+                        <td>{{ word.english }}</td>
+                        <td>{{ word.japanese }}</td>
+                        <td>{{ word.correct_count or 0 }}</td>
+                        <td>{{ word.wrong_count or 0 }}</td>
+                        <td>{{ word.last_reviewed }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="empty-box">
+            <p>No reviewed words yet. Try the quiz first.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

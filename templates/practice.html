@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    {% if mode == "weak" %}
+        <h1>Practice Weak Words</h1>
+        <p>Review the words you struggle with the most.</p>
+    {% else %}
+        <h1>Practice</h1>
+        <p>Review a random word from your vocabulary list.</p>
+    {% endif %}
+</div>
+
+{% if word %}
+    <div class="practice-card">
+        <span class="practice-label">English</span>
+        <h2>{{ word.english }}</h2>
+
+        <span class="practice-label practice-label-space">Japanese</span>
+        <h3>{{ word.japanese }}</h3>
+
+        {% if mode == "weak" %}
+            <div class="practice-stats">
+                <div class="mini-stat">
+                    <span>Correct</span>
+                    <strong>{{ word.correct_count or 0 }}</strong>
+                </div>
+                <div class="mini-stat">
+                    <span>Wrong</span>
+                    <strong>{{ word.wrong_count or 0 }}</strong>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="practice-actions">
+            <button class="speak-btn" onclick="speakJapanese('{{ word.japanese }}')">🔊 Pronounce</button>
+
+            {% if mode == "weak" %}
+                <a href="{{ url_for('practice_weak') }}" class="btn-primary">Next Weak Word</a>
+            {% else %}
+                <a href="{{ url_for('practice') }}" class="btn-primary">Next Random Word</a>
+            {% endif %}
+        </div>
+    </div>
+{% else %}
+    <div class="empty-box">
+        {% if mode == "weak" %}
+            <h3>No weak words available</h3>
+            <p>You currently do not have any weak words. Take the quiz first to generate weak-word practice.</p>
+            <a href="{{ url_for('quiz') }}" class="btn-primary">Go to Quiz</a>
+        {% else %}
+            <h3>No words available</h3>
+            <p>Add some words first to start practice.</p>
+            <a href="{{ url_for('add_word') }}" class="btn-primary">Add Word</a>
+        {% endif %}
+    </div>
+{% endif %}
+
+<script>
+function speakJapanese(text) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "ja-JP";
+    speechSynthesis.speak(utterance);
+}
+</script>
+{% endblock %}

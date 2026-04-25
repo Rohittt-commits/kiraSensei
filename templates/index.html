@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Welcome to KiraSensei</h1>
+    <p>Your Japanese learning web app for vocabulary, quizzes, flashcards, and progress tracking.</p>
+</div>
+
+<div class="stats-grid">
+    <a href="{{ url_for('learn') }}" class="home-card">
+        <h3>Learn Words</h3>
+        <p>View all saved vocabulary words in one clean list.</p>
+    </a>
+
+    <a href="{{ url_for('add_word') }}" class="home-card">
+        <h3>Add Word</h3>
+        <p>Add new English and Japanese word pairs to your collection.</p>
+    </a>
+
+    <a href="{{ url_for('quiz') }}" class="home-card">
+        <h3>Quiz</h3>
+        <p>Test yourself with multiple-choice questions and improve your score.</p>
+    </a>
+
+    <a href="{{ url_for('flashcards') }}" class="home-card">
+        <h3>Flashcards</h3>
+        <p>Study your vocabulary using simple flip-style flashcards.</p>
+    </a>
+
+    <a href="{{ url_for('practice') }}" class="home-card">
+        <h3>Practice</h3>
+        <p>Get a random word to review and reinforce your memory.</p>
+    </a>
+
+    <a href="{{ url_for('dashboard') }}" class="home-card">
+        <h3>Dashboard</h3>
+        <p>See your total words, correct answers, wrong answers, and review progress.</p>
+    </a>
+
+    <a href="{{ url_for('weak_words') }}" class="home-card">
+        <h3>Weak Words</h3>
+        <p>Find the words you struggle with most and practice them again.</p>
+    </a>
+</div>
+{% endblock %}
