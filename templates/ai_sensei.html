@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>AI Sensei</h1>
+    <p>AI-generated immersive learning for this vocabulary word.</p>
+</div>
+
+<div class="practice-card">
+    <span class="badge">{{ word.jlpt_level or "N5" }}</span>
+
+    <span class="practice-label">English</span>
+    <h2>{{ word.english }}</h2>
+
+    <span class="practice-label practice-label-space">Japanese</span>
+    <h3>{{ word.japanese }}</h3>
+
+    <div class="practice-actions">
+        <button class="speak-btn" onclick="speakJapanese('{{ word.japanese }}')">
+            🔊 Pronounce
+        </button>
+
+        <a href="{{ url_for('learn') }}" class="btn-secondary">
+            Back to Learn
+        </a>
+    </div>
+</div>
+
+<div class="signature-panel">
+    <h2>AI Learning Experience</h2>
+
+    <div style="white-space: pre-line; line-height: 1.8;">
+        {{ ai_response }}
+    </div>
+</div>
+
+<script>
+function speakJapanese(text) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "ja-JP";
+    speechSynthesis.speak(utterance);
+}
+</script>
+{% endblock %}

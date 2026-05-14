@@ -1,19 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<h1 class="page-title">Add New Word</h1>
-
-<div class="card">
-    <form method="POST">
-        <p>English Word</p>
-        <input type="text" name="english" placeholder="Enter English word" required>
-
-        <p>Japanese Word</p>
-        <input type="text" name="japanese" placeholder="Enter Japanese word" required>
-
-        <button type="submit" class="btn">Add Word</button>
-    </form>
+<div class="page-header">
+    <h1>Add New Word</h1>
+    <p>Add a new Japanese vocabulary word with its JLPT level.</p>
 </div>
 
+<form method="POST" class="form-card">
+    <label>English</label>
+    <input type="text" name="english" placeholder="Example: Water" required>
+
+    <label>Japanese</label>
+    <input type="text" name="japanese" placeholder="Example: みず" required>
+
+    <label>JLPT Level</label>
+    <select name="level" required>
+        <option value="N5">N5 - Beginner</option>
+        <option value="N4">N4 - Elementary</option>
+        <option value="N3">N3 - Intermediate</option>
+    </select>
+
+    <button type="submit" class="btn-primary">Add Word</button>
+</form>
 {% endblock %}

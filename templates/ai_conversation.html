@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>AI Conversation Mode</h1>
+    <p>Practice beginner Japanese conversations with AI Sensei in real-life situations.</p>
+</div>
+
+<div class="signature-panel">
+    <h2>Choose a Scenario</h2>
+
+    <form method="POST" class="conversation-form">
+        <select name="scenario">
+            <option value="cafe" {% if scenario == "cafe" %}selected{% endif %}>Cafe</option>
+            <option value="anime school" {% if scenario == "anime school" %}selected{% endif %}>Anime School</option>
+            <option value="train station" {% if scenario == "train station" %}selected{% endif %}>Train Station</option>
+            <option value="japanese store" {% if scenario == "japanese store" %}selected{% endif %}>Japanese Store</option>
+            <option value="tokyo street" {% if scenario == "tokyo street" %}selected{% endif %}>Tokyo Street</option>
+        </select>
+
+        <input type="text" name="message" placeholder="Type your reply here... Example: こんにちは" required>
+
+        <button type="submit" class="btn-primary">Send</button>
+        <a href="{{ url_for('reset_ai_conversation') }}" class="btn-secondary">Reset Chat</a>
+    </form>
+</div>
+
+<div class="conversation-box">
+    {% if history %}
+        {% for chat in history %}
+            <div class="chat-message {% if chat.role == 'You' %}user-chat{% else %}ai-chat{% endif %}">
+                <strong>{{ chat.role }}</strong>
+                <p>{{ chat.message }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-box">
+            <h3>Start your conversation</h3>
+            <p>Choose a scenario and type a simple Japanese greeting like こんにちは.</p>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+.conversation-form {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.conversation-form select,
+.conversation-form input {
+    padding: 11px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    font-size: 15px;
+}
+
+.conversation-form input {
+    flex: 1;
+    min-width: 250px;
+}
+
+.conversation-box {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.chat-message {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 14px rgba(15,23,42,.06);
+    white-space: pre-line;
+}
+
+.user-chat {
+    border-left: 6px solid #2563eb;
+}
+
+.ai-chat {
+    border-left: 6px solid #7c3aed;
+    background: #f8fafc;
+}
+
+.chat-message strong {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.chat-message p {
+    line-height: 1.7;
+}
+</style>
+{% endblock %}

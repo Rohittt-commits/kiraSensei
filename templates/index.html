@@ -1,45 +1,63 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="page-header">
-    <h1>Welcome to KiraSensei</h1>
-    <p>Your Japanese learning web app for vocabulary, quizzes, flashcards, and progress tracking.</p>
-</div>
+<section class="hero-section">
+    <div class="hero-content">
+        <span class="hero-badge">Japanese Learning App</span>
+        <h1>Welcome to KiraSensei</h1>
+        <p>
+            Learn Japanese vocabulary with quizzes, flashcards, weak-word practice,
+            JLPT levels, progress tracking, and CSV import/export.
+        </p>
+
+        <div class="hero-actions">
+            <a href="{{ url_for('learn') }}" class="btn-primary">Start Learning</a>
+            <a href="{{ url_for('dashboard') }}" class="btn-secondary">View Dashboard</a>
+        </div>
+    </div>
+</section>
 
 <div class="stats-grid">
     <a href="{{ url_for('learn') }}" class="home-card">
+        <div class="card-icon">📚</div>
         <h3>Learn Words</h3>
-        <p>View all saved vocabulary words in one clean list.</p>
+        <p>View, search, filter, pronounce, edit, and manage your vocabulary.</p>
     </a>
 
     <a href="{{ url_for('add_word') }}" class="home-card">
+        <div class="card-icon">➕</div>
         <h3>Add Word</h3>
-        <p>Add new English and Japanese word pairs to your collection.</p>
+        <p>Add new English and Japanese word pairs with JLPT levels.</p>
     </a>
 
     <a href="{{ url_for('quiz') }}" class="home-card">
+        <div class="card-icon">🧠</div>
         <h3>Quiz</h3>
-        <p>Test yourself with multiple-choice questions and improve your score.</p>
+        <p>Test yourself with multiple-choice questions and track results.</p>
     </a>
 
     <a href="{{ url_for('flashcards') }}" class="home-card">
+        <div class="card-icon">🎴</div>
         <h3>Flashcards</h3>
-        <p>Study your vocabulary using simple flip-style flashcards.</p>
+        <p>Use clean flip cards to memorize vocabulary faster.</p>
     </a>
 
     <a href="{{ url_for('practice') }}" class="home-card">
+        <div class="card-icon">🎯</div>
         <h3>Practice</h3>
-        <p>Get a random word to review and reinforce your memory.</p>
+        <p>Review random words or focus only on weak words.</p>
     </a>
 
     <a href="{{ url_for('dashboard') }}" class="home-card">
+        <div class="card-icon">📊</div>
         <h3>Dashboard</h3>
-        <p>See your total words, correct answers, wrong answers, and review progress.</p>
+        <p>Track words, correct answers, weak words, and JLPT stats.</p>
     </a>
 
     <a href="{{ url_for('weak_words') }}" class="home-card">
+        <div class="card-icon">⚡</div>
         <h3>Weak Words</h3>
-        <p>Find the words you struggle with most and practice them again.</p>
+        <p>Focus on vocabulary you answer incorrectly most often.</p>
     </a>
 </div>
 {% endblock %}

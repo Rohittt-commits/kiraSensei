@@ -3,15 +3,41 @@
 {% block content %}
 <div class="page-header">
     <h1>Learn Japanese Words</h1>
-    <p>Browse all vocabulary words in your learning database.</p>
+    <p>Browse, search, edit, pronounce, and use AI Sensei for immersive learning.</p>
+</div>
+
+<form method="GET" action="{{ url_for('learn') }}" class="search-filter-card">
+    <input 
+        type="text" 
+        name="search" 
+        placeholder="Search English or Japanese..." 
+        value="{{ search }}"
+    >
+
+    <select name="level">
+        <option value="" {% if not level %}selected{% endif %}>All Levels</option>
+        <option value="N5" {% if level == "N5" %}selected{% endif %}>N5</option>
+        <option value="N4" {% if level == "N4" %}selected{% endif %}>N4</option>
+        <option value="N3" {% if level == "N3" %}selected{% endif %}>N3</option>
+    </select>
+
+    <button type="submit" class="btn-primary">Search</button>
+    <a href="{{ url_for('learn') }}" class="btn-secondary">Clear</a>
+</form>
+
+<div class="csv-section">
+    <form action="{{ url_for('import_csv') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button class="btn-primary">Import CSV</button>
+    </form>
+
+    <a href="{{ url_for('export_csv') }}" class="btn-secondary">Export CSV</a>
 </div>
 
 {% if words %}
 <div class="learn-grid">
-
     {% for word in words %}
     <div class="learn-card">
-
         <div class="word-row">
             <div class="word-column">
                 <span class="label">English</span>
@@ -25,32 +51,32 @@
         </div>
 
         <div class="card-actions">
-            <button
-                class="speak-btn"
-                onclick="speakJapanese('{{ word.japanese }}')">
+            <span class="badge">{{ word.jlpt_level or "N5" }}</span>
+
+            <button class="speak-btn" onclick="speakJapanese('{{ word.japanese }}')">
                 🔊 Pronounce
             </button>
 
+            <a href="{{ url_for('ai_sensei', word_id=word.id) }}" class="btn-primary">
+                AI Sensei
+            </a>
+
+            <a href="{{ url_for('edit_word', word_id=word.id) }}" class="edit-btn">
+                Edit
+            </a>
+
             <form action="{{ url_for('delete_word', word_id=word.id) }}" method="POST">
-                <button class="delete-btn" type="submit">
-                    Delete
-                </button>
+                <button class="delete-btn" type="submit">Delete</button>
             </form>
         </div>
-
     </div>
     {% endfor %}
-
 </div>
-
 {% else %}
 <div class="empty-box">
-    <h3>No words added yet</h3>
-    <p>Add some vocabulary to start learning.</p>
-
-    <a href="{{ url_for('add_word') }}" class="btn-primary">
-        Add Word
-    </a>
+    <h3>No words found</h3>
+    <p>Try a different search term, change the JLPT filter, or add more words.</p>
+    <a href="{{ url_for('add_word') }}" class="btn-primary">Add Word</a>
 </div>
 {% endif %}
 
@@ -61,5 +87,4 @@ function speakJapanese(text) {
     speechSynthesis.speak(utterance);
 }
 </script>
-
 {% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Edit Word</h1>
+    <p>Update the vocabulary word without losing its progress data.</p>
+</div>
+
+<form method="POST" class="form-card">
+    <label>English</label>
+    <input type="text" name="english" value="{{ word.english }}" required>
+
+    <label>Japanese</label>
+    <input type="text" name="japanese" value="{{ word.japanese }}" required>
+
+    <label>JLPT Level</label>
+    <select name="level" required>
+        <option value="N5" {% if word.jlpt_level == "N5" %}selected{% endif %}>N5 - Beginner</option>
+        <option value="N4" {% if word.jlpt_level == "N4" %}selected{% endif %}>N4 - Elementary</option>
+        <option value="N3" {% if word.jlpt_level == "N3" %}selected{% endif %}>N3 - Intermediate</option>
+    </select>
+
+    <div class="form-actions">
+        <button type="submit" class="btn-primary">Save Changes</button>
+        <a href="{{ url_for('learn') }}" class="btn-secondary">Cancel</a>
+    </div>
+</form>
+{% endblock %}

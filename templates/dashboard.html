@@ -3,7 +3,15 @@
 {% block content %}
 <div class="page-header">
     <h1>Dashboard</h1>
-    <p>Track your learning progress and performance.</p>
+    <p>Track your learning progress, performance, and JLPT-level distribution.</p>
+</div>
+
+<div class="page-top-actions">
+    <a href="{{ url_for('reset_quiz') }}" class="btn-secondary">Reset Quiz Score</a>
+
+    <form action="{{ url_for('reset_progress') }}" method="POST" onsubmit="return confirm('Are you sure? This will reset all correct/wrong progress, but your words will stay saved.');">
+        <button type="submit" class="delete-btn">Reset All Progress</button>
+    </form>
 </div>
 
 <div class="stats-grid">
@@ -31,6 +39,21 @@
         <h3>Weak Words</h3>
         <p>{{ weak_words_count }}</p>
     </div>
+
+    <div class="stat-card">
+        <h3>N5 Words</h3>
+        <p>{{ n5_count }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>N4 Words</h3>
+        <p>{{ n4_count }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>N3 Words</h3>
+        <p>{{ n3_count }}</p>
+    </div>
 </div>
 
 <div class="dashboard-section">
@@ -40,34 +63,36 @@
     </div>
 
     {% if recently_reviewed %}
-        <div class="table-wrapper">
-            <table class="custom-table">
-                <thead>
-                    <tr>
-                        <th>English</th>
-                        <th>Japanese</th>
-                        <th>Correct</th>
-                        <th>Wrong</th>
-                        <th>Last Reviewed</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for word in recently_reviewed %}
-                    <tr>
-                        <td>{{ word.english }}</td>
-                        <td>{{ word.japanese }}</td>
-                        <td>{{ word.correct_count or 0 }}</td>
-                        <td>{{ word.wrong_count or 0 }}</td>
-                        <td>{{ word.last_reviewed }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+    <div class="table-wrapper">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Level</th>
+                    <th>English</th>
+                    <th>Japanese</th>
+                    <th>Correct</th>
+                    <th>Wrong</th>
+                    <th>Last Reviewed</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for word in recently_reviewed %}
+                <tr>
+                    <td><span class="badge small-badge">{{ word.jlpt_level or "N5" }}</span></td>
+                    <td>{{ word.english }}</td>
+                    <td>{{ word.japanese }}</td>
+                    <td>{{ word.correct_count or 0 }}</td>
+                    <td>{{ word.wrong_count or 0 }}</td>
+                    <td>{{ word.last_reviewed }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     {% else %}
-        <div class="empty-box">
-            <p>No reviewed words yet. Try the quiz first.</p>
-        </div>
+    <div class="empty-box">
+        <p>No reviewed words yet. Try the quiz first.</p>
+    </div>
     {% endif %}
 </div>
 {% endblock %}

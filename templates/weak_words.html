@@ -12,23 +12,25 @@
 </div>
 
 {% if words %}
-    <div class="stats-grid">
-        {% for word in words %}
-            <div class="word-card">
-                <h3>{{ word.english }}</h3>
-                <p><strong>Japanese:</strong> {{ word.japanese }}</p>
-                <p><strong>Correct:</strong> {{ word.correct_count or 0 }}</p>
-                <p><strong>Wrong:</strong> {{ word.wrong_count or 0 }}</p>
-                <p><strong>Weakness Score:</strong> {{ word.weakness_score }}</p>
-                <p><strong>Last Reviewed:</strong> {{ word.last_reviewed or "Never" }}</p>
-            </div>
-        {% endfor %}
+<div class="stats-grid">
+    {% for word in words %}
+    <div class="word-card">
+        <span class="badge">{{ word.jlpt_level or "N5" }}</span>
+
+        <h3>{{ word.english }}</h3>
+        <p><strong>Japanese:</strong> {{ word.japanese }}</p>
+        <p><strong>Correct:</strong> {{ word.correct_count or 0 }}</p>
+        <p><strong>Wrong:</strong> {{ word.wrong_count or 0 }}</p>
+        <p><strong>Weakness Score:</strong> {{ word.weakness_score }}</p>
+        <p><strong>Last Reviewed:</strong> {{ word.last_reviewed or "Never" }}</p>
     </div>
+    {% endfor %}
+</div>
 {% else %}
-    <div class="empty-box">
-        <h3>No weak words yet</h3>
-        <p>You do not have any weak words right now. Try the quiz to generate progress data.</p>
-        <a href="{{ url_for('quiz') }}" class="btn-primary">Start Quiz</a>
-    </div>
+<div class="empty-box">
+    <h3>No weak words yet</h3>
+    <p>You do not have any weak words right now. Try the quiz to generate progress data.</p>
+    <a href="{{ url_for('quiz') }}" class="btn-primary">Start Quiz</a>
+</div>
 {% endif %}
 {% endblock %}

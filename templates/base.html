@@ -7,25 +7,35 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-brand">
-            <a href="{{ url_for('home') }}">KiraSensei</a>
-        </div>
 
-        <div class="nav-links">
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('learn') }}">Learn</a>
-            <a href="{{ url_for('add_word') }}">Add Word</a>
-            <a href="{{ url_for('quiz') }}">Quiz</a>
-            <a href="{{ url_for('flashcards') }}">Flashcards</a>
-            <a href="{{ url_for('practice') }}">Practice</a>
-            <a href="{{ url_for('dashboard') }}">Dashboard</a>
-            <a href="{{ url_for('weak_words') }}">Weak Words</a>
-        </div>
-    </nav>
+<nav class="navbar">
+    <div class="nav-brand">
+        <a href="{{ url_for('home') }}">
+            <span class="brand-mark">桜</span>
+            KiraSensei
+        </a>
+    </div>
 
-    <main class="main-container">
-        {% block content %}{% endblock %}
-    </main>
+    <div class="nav-links">
+        <a href="{{ url_for('home') }}" class="{% if request.endpoint == 'home' %}active-nav{% endif %}">Home</a>
+        <a href="{{ url_for('learn') }}" class="{% if request.endpoint == 'learn' %}active-nav{% endif %}">Learn</a>
+        <a href="{{ url_for('add_word') }}" class="{% if request.endpoint == 'add_word' %}active-nav{% endif %}">Add Word</a>
+        <a href="{{ url_for('quiz') }}" class="{% if request.endpoint == 'quiz' %}active-nav{% endif %}">Quiz</a>
+        <a href="{{ url_for('flashcards') }}" class="{% if request.endpoint == 'flashcards' %}active-nav{% endif %}">Flashcards</a>
+        <a href="{{ url_for('practice') }}" class="{% if request.endpoint == 'practice' or request.endpoint == 'practice_weak' %}active-nav{% endif %}">Practice</a>
+        <a href="{{ url_for('ai_conversation') }}" class="{% if request.endpoint == 'ai_conversation' %}active-nav{% endif %}">AI Talk</a>
+        <a href="{{ url_for('dashboard') }}" class="{% if request.endpoint == 'dashboard' %}active-nav{% endif %}">Dashboard</a>
+        <a href="{{ url_for('weak_words') }}" class="{% if request.endpoint == 'weak_words' %}active-nav{% endif %}">Weak Words</a>
+    </div>
+</nav>
+
+<main class="main-container">
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+    <p>KiraSensei — AI-powered Japanese vocabulary learning</p>
+</footer>
+
 </body>
 </html>
