@@ -87,16 +87,30 @@ Tracks difficult vocabulary automatically based on quiz performance.
 
 # 📸 Screenshots
 
-Add your screenshots here later.
+# 📸 Screenshots
 
-Example:
-- Home page
-- Learn page
-- AI Sensei page
-- AI Conversation page
-- Dashboard
+## 🏠 Home Page
+![Home Page](screenshots/home.png)
 
 ---
+
+## 📘 Learn Page
+![Learn Page](screenshots/learn.png)
+
+---
+
+## 🤖 AI Sensei
+![AI Sensei](screenshots/ai-sensei.png)
+
+---
+
+## 💬 AI Conversation Mode
+![AI Conversation Mode](screenshots/ai-talk.png)
+
+---
+
+## 📊 Dashboard
+![Dashboard](screenshots/dashboard.png)
 
 # ⚙️ Installation
 

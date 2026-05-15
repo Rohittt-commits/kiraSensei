@@ -14,7 +14,7 @@ except ImportError:
 app = Flask(__name__)
 app.secret_key = "kirasensei_secret_key"
 
-GEMINI_API_KEY = "PASTE_YOUR_API_KEY_HERE"
+GEMINI_API_KEY = "AIzaSyBSiFJSLJfsLOiO4X-7L2AQECwd7UKT2eU"
 
 
 def generate_ai_response(prompt):
